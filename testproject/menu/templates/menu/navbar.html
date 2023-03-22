@@ -1,0 +1,38 @@
+{% load menutags %}
+{% getmenu as menu %}
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+
+    <div class="collapse navbar-collapse" id="navbarScroll">
+      <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Главная</a>
+        </li>
+
+        {% for el in menu %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{el.title}}
+          </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+              {% dopmenu as dop%}
+                {% for i in dpmenu %}
+              {% if i.main == el %}
+              <li><a class="dropdown-item" href="{% url 'menu' i.pk %}">{{ i.title }}</a></li>
+              {% endif %}
+
+
+                {% endfor %}
+
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Древовидное меню</a></li>
+            </ul>
+        </li>
+        {% endfor %}
+      </ul>
+
+    </div>
+  </div>
+</nav>
